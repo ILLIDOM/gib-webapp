@@ -1,1 +1,3 @@
 .vscode
+cmd/database.db
+cmd/__debug_bin
