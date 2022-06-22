@@ -8,6 +8,7 @@ import (
 
 	"github.com/ILLIDOM/gin-webapp/cmd/database"
 	"github.com/ILLIDOM/gin-webapp/cmd/http"
+	"github.com/ILLIDOM/gin-webapp/cmd/middleware"
 	"github.com/gin-gonic/gin"
 )
 
@@ -43,6 +44,12 @@ func main() {
 	server.Use(gin.Logger())
 
 	server.POST("/login", loginHandler.Login)
+
+	api := server.Group("/api")
+	api.Use(middleware.ValidateToken())
+
+	admin := api.Group("/admin")
+	admin.Use(middleware.Authorization([]int{1}))
 
 	server.GET("/users/:user_id", userHandler.GetByID)
 	server.POST("/users", userHandler.Create)
