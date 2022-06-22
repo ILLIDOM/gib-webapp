@@ -11,10 +11,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-var (
-	router = gin.Default()
-)
-
 func main() {
 	// create db
 	file, err := os.Create("database.db")
@@ -36,13 +32,22 @@ func main() {
 	userService := database.UserService{
 		DB: db,
 	}
-	//create httpHandler for Users
+	//create handlers
+	loginHandler := http.NewLoginHandler()
 	userHandler := http.NewHandler(userService)
 
-	router.GET("/users/:user_id", userHandler.GetByID)
-	router.POST("/users", userHandler.Create)
+	// create http server without any middleware
+	server := gin.New()
+	// attach middleware to server - smae as gin.Default()
+	server.Use(gin.Recovery())
+	server.Use(gin.Logger())
 
-	router.Run(":8080")
+	server.POST("/login", loginHandler.Login)
+
+	server.GET("/users/:user_id", userHandler.GetByID)
+	server.POST("/users", userHandler.Create)
+
+	server.Run(":8080")
 }
 
 func createTable(db *sql.DB) {

@@ -6,6 +6,7 @@ type User struct {
 	Lastname  string `json:"lastname"`
 	Fullname  string `json:"fullname"`
 	Email     string `json:"email"`
+	Roles     []Role
 }
 
 type UserService interface {
