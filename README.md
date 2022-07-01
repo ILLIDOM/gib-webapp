@@ -5,6 +5,19 @@
 
 ## Example requests
 
+- login
+
+```
+curl --request POST \
+  --url http://localhost:8080/login \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "userid": 1,
+    "username": "Dominique Illi",
+    "password": "password"
+  }'
+```
+
 - create user: 
 ```
 curl --request POST \

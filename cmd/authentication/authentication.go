@@ -26,8 +26,9 @@ func (claims JWTClaim) Valid() error {
 }
 
 type LoginRequest struct {
-	UserName string `json:"username" form:"UserName" binding:"required"`
-	Password string `json:"password" form:"Password" binding:"required"`
+	UserID   int    `json:"userid"`
+	UserName string `json:"username"`
+	Password string `json:"password"`
 }
 
 func GenerateJWT(user domain.User) (tokenString string, err error) {

@@ -1,9 +1,8 @@
 package domain
 
 type Role struct {
-	ID          int    `json:"id"`
-	Name        string `json:"role_name"`
-	Descirption string `json:"role_description"`
+	ID   int    `json:"id"`
+	Name string `json:"role_name"`
 }
 
 type RoleService interface {
